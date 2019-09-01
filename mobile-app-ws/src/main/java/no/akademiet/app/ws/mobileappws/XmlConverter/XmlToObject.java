@@ -14,7 +14,7 @@ public class XmlToObject {
 
     public static List<Room> convertXml() {
         try {
-            String pathName = "/Users/martinsw/RestProjects/mobile-app-ws/src/main/java/no/akademiet/app/ws/mobileappws/XmlConverter/rooms.xml";
+            String pathName = "~/romstatus-WS/romstatus-app-ws/mobile-app-ws/src/main/java/no/akademiet/app/ws/mobileappws/XmlConverter/rooms.xml";
             File xmlFile = new File(pathName);
             JAXBContext jaxbContext = JAXBContext.newInstance(RoomList.class);
 
