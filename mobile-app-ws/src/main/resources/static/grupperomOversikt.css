@@ -1,0 +1,286 @@
+  :root {
+    --primCol: #F9F8F6;
+    --secCol: #EbE9E8;
+    --hoverCol: #FFBA66;
+    --paddingWide: 10%;
+    --paddingSmall: 5%;
+  }
+
+  /* Meny */
+  ul {
+    padding: 0;
+    padding-left: var(--paddingWide);
+    margin: 0;
+    list-style-type: none;
+    overflow: hidden;
+    background-color: var(--secCol);
+  }
+
+  li {
+    display: block;
+    text-align: left;
+    text-align: center;
+    text-decoration: none;
+    float: left;
+    display: block;
+    padding: 20px;
+  }
+
+  li:hover {
+    background-color: var(--hoverCol);
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+  }
+
+  .menu {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    left: 0;
+  }
+
+  .active {
+    background-color: var(--primCol);
+  }
+
+  .inactive {
+    background-color: var(--secCol);
+    cursor: pointer;
+  }
+
+  .active:hover {
+    background-color: var(--primCol);
+  }
+
+  /* Oversikt */
+  table#myTable {
+    border-collapse: collapse;
+    text-align: center;
+    margin-left: 0;
+    width: 100%;
+  }
+
+  th {
+    text-align: center;
+    color: white;
+    background-color: #E77731;
+    margin: 10px;
+    padding: 10px;
+    letter-spacing: 2px;
+    width: 20%;
+    cursor: pointer;
+    transition: 0.48s;
+    border: solid var(--primCol) 3px;
+  }
+
+  th:hover {
+    background-color: orange;
+    transition: 0.5s;
+    transform: scale(1.01);
+  }
+
+  tr.tabell {
+    transition: 0.2s;
+    background-color: var(--secCol);
+  }
+
+  tr.tabell:hover {
+    background-color: var(--hoverCol);
+    transition: 0.2s;
+  }
+
+  tr.tabell>td {
+    padding: 5px;
+    border-left: solid var(--primCol) 3px;
+  }
+
+  /*Kart*/
+  div#kart {
+    width: 70vw;
+    height: 80vh;
+    position: relative;
+    margin: auto;
+    top: 20px;
+    text-align: center;
+    display: none;
+    max-width: 700px;
+  }
+
+  div.unclick {
+    position: absolute;
+    width: 29%;
+  }
+
+  div.unclick:hover {
+    width: 35%;
+    position: absolute;
+    transition: 0.3s;
+  }
+
+  div#etasje2 {
+    right: 0;
+    height: 100%
+  }
+
+  div#etasje1 {
+    left: 40%;
+    height: 100%;
+  }
+
+  [name="grupperom"] {
+    height: 11.1%;
+    transition: 0.3s;
+    background-color: #EbE9E8;
+    position: relative;
+  }
+
+  [name="grupperom"]:hover {
+    transform: scale(1.01);
+    transition: 0.1s;
+    font-size: 0.9em;
+    padding-top: 1vh;
+    box-shadow: 0 0 0.5vw rgba(0, 0, 0, 0.5);
+  }
+
+  [name="grupperom"]>div {
+    position: absolute;
+    top: 35%;
+    width: 100%;
+  }
+
+  [name="grupperom"]>table {
+    display: none;
+  }
+
+  [name="grupperom"]:hover>table {
+    display:inline-block;
+    text-align: center;
+  }
+
+  [name="grupperom"]:hover>div {
+    display: none;
+  }
+
+  #Vrimle {
+    background-color: #EbE9E8;
+    width: 38%;
+    height: 100%;
+  }
+
+  #Vrimle>p {
+    writing-mode: vertical-rl;
+    text-align: center;
+    font-size: 7vh;
+  }
+
+  [name="grupperom"]>table {
+    font-size: 2.5vw;
+    text-align: left;
+  }
+
+  @media only screen and (min-width: 700px) {
+    [name="grupperom"]>table {
+      font-size: 15px;
+    }
+  }
+
+  /* Sider som enda ikke er ferdig */
+  div.innhold {
+    width: 100%;
+    padding-left: var(--paddingWide);
+    padding-right: var(--paddingWide);
+  }
+
+  div[name="annet"] {
+    display: none;
+  }
+
+  /* Felles */
+  html {
+    background-color: var(--primCol);
+    font-family: sans-serif;
+  }
+
+  h1 {
+    padding-top: 1%;
+    font-family: arial;
+    color: #584434;
+    margin-left: 0;
+    margin-bottom: 10px;
+  }
+
+  /*Eastereggs
+  easteregg1*/
+  @media only screen and (max-width: 1000px) {
+    #easteregg1 {
+      display: none;
+    }
+  }
+
+  #easteregg1 {
+    color: var(--secCol);
+    cursor: help;
+  }
+
+  /*Mindre viktige elementer hjemmes når det ikke blir plass til dem*/
+  @media only screen and (max-width: 600px) {
+    #etasje {
+      display: none;
+    }
+
+    li {
+      font-size: 15px;
+      padding: 15px;
+    }
+  }
+
+  @media only screen and (max-width: 520px) {
+    #navn {
+      display: none;
+    }
+
+    div.innhold {
+      width: 100%;
+      padding-left: var(--paddingSmall);
+      padding-right: var(--paddingSmall);
+    }
+
+    div#Kart {
+      margin-left: 5%;
+    }
+
+    ul {
+      padding-left: var(--paddingSmall);
+    }
+  }
+
+  @media only screen and (max-width: 450px) {
+    h1 {
+      font-size: 25px;
+    }
+  }
+
+  @media only screen and (max-width: 460px) {
+    #pro {
+      display: none;
+    }
+  }
+
+  @media only screen and (max-width: 335px) {
+    #hjelp {
+      display: none;
+    }
+  }
+
+  @media only screen and (max-width: 325px) {
+    tr.tabell td {
+      font-size: 90%;
+    }
+
+    th {
+      font-size: 90%;
+    }
+  }
