@@ -5,6 +5,7 @@ import no.akademiet.app.ws.mobileappws.XmlConverter.Rooms;
 import no.akademiet.app.ws.mobileappws.XmlConverter.XmlToObject;
 import no.akademiet.app.ws.mobileappws.tests.FileTest;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.nio.file.Files;
@@ -28,6 +29,13 @@ public class FileUploadController {
         catch (Exception e) {
             return "";
         }
+    }
+
+    @GetMapping(path = "/getLatestVersion/{version}")
+    public String getLatestVersion(@PathVariable("version") String version) {
+        String appVersion = "pre-release";
+
+        return String.valueOf(appVersion.equals(version)); // TODO: 2019-09-11 set correct version
     }
 
 }
