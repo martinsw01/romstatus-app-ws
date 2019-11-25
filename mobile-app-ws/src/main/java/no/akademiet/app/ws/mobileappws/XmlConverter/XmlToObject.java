@@ -7,14 +7,16 @@ import org.springframework.web.client.RestTemplate;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
-import java.io.*;
+import java.io.File;
+import java.nio.file.Paths;
 import java.util.List;
 
 public class XmlToObject {
 
     public static List<Room> convertXml() {
         try {
-            String pathName = "/home/pi/romstatus-WS/romstatus-app-ws/mobile-app-ws/src/main/java/no/akademiet/app/ws/mobileappws/XmlConverter/rooms.xml";
+            String currentDir = Paths.get("").toAbsolutePath().toString();
+            String pathName = currentDir + "/src/main/java/no/akademiet/app/ws/mobileappws/XmlConverter/rooms.xml";
             File xmlFile = new File(pathName);
             JAXBContext jaxbContext = JAXBContext.newInstance(RoomList.class);
 
