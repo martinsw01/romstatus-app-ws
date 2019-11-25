@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
 @RestController
@@ -22,9 +23,11 @@ public class FileUploadController {
     @GetMapping(path = "/romstatus")
     public String getHtml() {
         try {
-            String html = new String(Files.readAllBytes(Paths.get("/home/pi/romstatus-WS/romstatus-app-ws/mobile-app-ws/src/main/resources/static/index.html")));
-            System.out.println(html);
-            return html;
+            String currentDir = Paths.get("").toAbsolutePath().toString();
+            String pathToIndex = "/src/main/resources/static/index.html";
+            Path path = Paths.get(currentDir, pathToIndex);
+
+            return new String(Files.readAllBytes(path));
         }
         catch (Exception e) {
             return "";
