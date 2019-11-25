@@ -15,6 +15,15 @@ import java.nio.file.Paths;
 @RestController
 public class FileUploadController {
 
+    Path webPagePath;
+
+    public FileUploadController() {
+        String currentDir = Paths.get("").toAbsolutePath().toString();
+        String pathToIndex = "/src/main/resources/static/index.html";
+        webPagePath = Paths.get(currentDir, pathToIndex);
+
+    }
+
     @GetMapping(path = "/object")
     public Rooms getRooms() {
         return new Rooms(XmlToObject.convertXml());
@@ -23,11 +32,7 @@ public class FileUploadController {
     @GetMapping(path = "/romstatus")
     public String getHtml() {
         try {
-            String currentDir = Paths.get("").toAbsolutePath().toString();
-            String pathToIndex = "/src/main/resources/static/index.html";
-            Path path = Paths.get(currentDir, pathToIndex);
-
-            return new String(Files.readAllBytes(path));
+            return new String(Files.readAllBytes(webPagePath));
         }
         catch (Exception e) {
             return "";
