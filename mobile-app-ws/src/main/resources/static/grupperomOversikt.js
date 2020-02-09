@@ -100,7 +100,7 @@ function side(n) {
   b = document.getElementById("kart")
   c = document.getElementById("trengerHjelp");
   d = document.getElementById("omP");
-  if (n == 1) {
+  if (n === 1) {
     //Gjemmer/viser dem 
     a.style.display = "block";  
     b.style.display = "none";
@@ -111,7 +111,7 @@ function side(n) {
     document.getElementById("kartm").className = "inactive";
     document.getElementById("hjelp").className = "inactive";
     document.getElementById("pro").className = "inactive";
-  } else if (n == 2) {
+  } else if (n === 2) {
     a.style.display = "none";
     b.style.display = "grid";
     c.style.display = "none";
@@ -120,7 +120,7 @@ function side(n) {
     document.getElementById("kartm").className = "active";
     document.getElementById("hjelp").className = "inactive";
     document.getElementById("pro").className = "inactive";
-  } else if (n == 3) {
+  } else if (n === 3) {
     a.style.display = "none";
     b.style.display = "none";
     c.style.display = "block";
