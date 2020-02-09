@@ -11,11 +11,16 @@ import org.springframework.web.bind.annotation.RestController;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 
 @RestController
 public class FileUploadController {
 
-    Path webPagePath;
+    private Path webPagePath;
+
+    private final String support = "Martin Saue Winther, Ferdinand Oppsal Schnell";
+    private final String appVersion = "pre-release";
+
 
     public FileUploadController() {
         String currentDir = Paths.get("").toAbsolutePath().toString();
@@ -35,14 +40,13 @@ public class FileUploadController {
             return new String(Files.readAllBytes(webPagePath));
         }
         catch (Exception e) {
-            return "";
+            e.printStackTrace();
+            return "This web page could not load. Please contact " + support +  "or your school's IT support";
         }
     }
 
     @GetMapping(path = "/getLatestVersion/{version}")
     public String getLatestVersion(@PathVariable("version") String version) {
-        String appVersion = "pre-release";
-
         return String.valueOf(appVersion.equals(version)); // TODO: 2019-09-11 set correct version
     }
 

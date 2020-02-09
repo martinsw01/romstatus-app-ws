@@ -1,12 +1,19 @@
 package no.akademiet.app.ws.mobileappws.tests;
 
+import no.akademiet.app.ws.mobileappws.XmlConverter.XmlToObject;
 import no.akademiet.app.ws.mobileappws.tests.RoomList;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import no.akademiet.app.ws.mobileappws.WebSocket.CustomWebSocket;
+
 
 import java.io.*;
 import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FileTest {
     public static String getXML(String pathName) {
@@ -23,15 +30,14 @@ public class FileTest {
             String xmlToString = builder.toString();
             bufferedReader.close();
             return xmlToString;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return "e.getMessage()";
         }
     }
 
     public static void main(String[] args) {
-        try {
+        /*try {
             String stringUrl = "http://10.0.0.93:8080";
             String prefix = "/object";
             RestTemplate template = new RestTemplate();
@@ -54,3 +60,4 @@ public class FileTest {
         System.out.println("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n<roomList id=\"1\">\n    <rooms>\n        <roomNumber>111</roomNumber>\n        <roomName>navn1</roomName>\n        <roomStatus>0</roomStatus>\n        <roomAirQuality>1256</roomAirQuality>\n    </rooms>\n    <rooms>\n        <roomNumber>112</roomNumber>\n        <roomName>navn2</roomName>\n        <roomStatus>1</roomStatus>\n        <roomAirQuality>100</roomAirQuality>\n    </rooms>\n</roomList>\n".equals(String.valueOf(xml)));
 */
     }
+}
