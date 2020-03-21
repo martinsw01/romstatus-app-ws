@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@SuppressWarnings("unused")
 @RestController
 public class RoomStatusController {
     private static final String CURRENT_VERSION = "preRelease";
