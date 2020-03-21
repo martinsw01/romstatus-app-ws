@@ -1,19 +1,7 @@
 package no.akademiet.app.ws.mobileappws.tests;
 
-import no.akademiet.app.ws.mobileappws.XmlConverter.XmlToObject;
-import no.akademiet.app.ws.mobileappws.tests.RoomList;
-import org.springframework.http.HttpEntity;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import no.akademiet.app.ws.mobileappws.WebSocket.CustomWebSocket;
-
 
 import java.io.*;
-import java.net.URL;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
 
 public class FileTest {
     public static String getXML(String pathName) {

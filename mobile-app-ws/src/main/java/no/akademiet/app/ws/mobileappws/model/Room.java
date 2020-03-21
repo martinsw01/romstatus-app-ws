@@ -1,28 +1,29 @@
-package no.akademiet.app.ws.mobileappws.XmlConverter;
+package no.akademiet.app.ws.mobileappws.model;
 
+@SuppressWarnings("unused")
 public class Room {
     private int roomAirQuality;
     private int roomNumber;
     private String roomName;
-    private boolean roomOccupied;
+    private boolean roomAvailable;
     private int floor;
 
     public Room() {}
 
-    public boolean isRoomOccupied() {
-        return roomOccupied;
+    public boolean isRoomAvailable() {
+        return roomAvailable;
     }
 
-    public void setRoomOccupied(boolean roomOccupied) {
-        this.roomOccupied = roomOccupied;
+    public void setRoomAvailable(boolean roomAvailable) {
+        this.roomAvailable = roomAvailable;
     }
 
-    public Room(int roomAirQuality, int roomNumber, String roomName, boolean roomOccupied, int floor) {
+    public Room(int roomAirQuality, int roomNumber, String roomName, boolean roomAvailable, int floor) {
         super();
         this.roomAirQuality = roomAirQuality;
         this.roomNumber = roomNumber;
         this.roomName = roomName;
-        this.roomOccupied = roomOccupied;
+        this.roomAvailable = roomAvailable;
         this.floor = floor;
     }
     public int getRoomAirQuality() {
