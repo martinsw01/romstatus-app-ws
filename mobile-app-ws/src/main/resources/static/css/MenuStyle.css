@@ -1,0 +1,59 @@
+:root {
+    --primCol: #F9F8F6;
+    --secCol: #EbE9E8;
+    --hoverCol: #FFBA66;
+    --paddingWide: 10%;
+}
+
+a {
+  color: inherit; /* blue colors for links too */
+  text-decoration: inherit; /* no underline */
+}
+
+ul {
+    padding: 0;
+    padding-left: var(--paddingWide);
+    margin: 0;
+    list-style-type: none;
+    overflow: hidden;
+    background-color: var(--secCol);
+  }
+
+  li {
+    display: block;
+    text-align: left;
+    text-align: center;
+    text-decoration: none;
+    float: left;
+    display: block;
+    padding: 20px;
+  }
+
+  li:hover {
+    background-color: var(--hoverCol);
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+  }
+
+  .menu {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    left: 0;
+  }
+
+  .active {
+    background-color: var(--primCol);
+  }
+
+  .inactive {
+    background-color: var(--secCol);
+    cursor: pointer;
+  }
+
+  .active:hover {
+    background-color: var(--primCol);
+  }

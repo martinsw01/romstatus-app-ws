@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.net.InetSocketAddress;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,28 +32,41 @@ public class CustomWebSocket extends WebSocketServer implements CommandLineRunne
 
     private static final int port = 8082;
 
+    private List<String> clients = new ArrayList<>();
+
     /**
      * @param roomsService is the service providing room lists, and notifies changes to the list
      */
     @Autowired
     public CustomWebSocket(RoomsService roomsService) {
-        super(new InetSocketAddress("localhost", port));
+        super(new InetSocketAddress("10.0.0.135", port));
+        setReuseAddr(true); //Socket might be in 'TIME_WAIT', preventing application to listen to port. See https://stackoverflow.com/questions/31864369/java-net-bindexception-address-already-in-use-jvm-bind
+
         this.roomsService = roomsService;
     }
 
     @Override
     public void onOpen(WebSocket webSocket, ClientHandshake clientHandshake) {
-        LOGGER.log(Level.INFO, "Socket opened");
+        String client = webSocket.getRemoteSocketAddress().toString();
+        clients.add(client);
+        LOGGER.log(Level.INFO, "Socket opened: " + client);
+        LOGGER.log(Level.INFO, clients.size() + " clients currently connected");
+
+        handleEvent("ROOM REQUEST");
     }
 
     @Override
     public void onClose(WebSocket webSocket, int i, String s, boolean b) {
-        LOGGER.log(Level.INFO, "Socket closed");
+        String client = webSocket.getRemoteSocketAddress().toString();
+        clients.remove(client);
+        LOGGER.log(Level.INFO, "Socket closed: " + client);
+        LOGGER.log(Level.INFO, clients.size() + " clients currently connected");
+
     }
 
     @Override
     public void onMessage(WebSocket webSocket, String s) {
-        LOGGER.log(Level.INFO, "Message received: " + s);
+        LOGGER.log(Level.INFO, "Message received: '" + s + "', from " + webSocket.getRemoteSocketAddress().toString());
         handleEvent(s);
     }
 
@@ -76,7 +90,7 @@ public class CustomWebSocket extends WebSocketServer implements CommandLineRunne
 
     private void handleEvent(String event) {
         switch (event) {
-            case "GET ROOMS":
+            case "ROOM REQUEST":
                 try {
                     RoomData roomData = new RoomData(roomsService.getAllRooms());
                     broadcastData(roomData);

@@ -58,7 +58,7 @@ public class DBAccessService implements RoomsDao {
     @Override
     public List<Room> getAllRooms() throws SQLException {
         if (cache.isEmpty()) {
-            LOGGER.log(Level.INFO, "Cache is empty. Searching for rooms in database."); //Should not happen
+            LOGGER.log(Level.INFO, "Cache is empty. Searching for rooms in database"); //Should not happen
             getRoomsFromDataBase();
         }
         return cache;
@@ -67,12 +67,12 @@ public class DBAccessService implements RoomsDao {
     private void getRoomsFromDataBase() throws SQLException {
         cache.clear();
 
-        LOGGER.log(Level.INFO, "Searching for rooms in database.");
+        LOGGER.log(Level.INFO, "Searching for rooms in database");
         Statement statement = dbConnection.createStatement();
         for (String roomNumber : ROOM_NUMBERS) {
             cache.add(readResult(selectRoom(roomNumber, statement)));
         }
-        LOGGER.log(Level.INFO, "Rooms successfully found.");
+        LOGGER.log(Level.INFO, "Rooms successfully found");
         statement.close();
     }
 

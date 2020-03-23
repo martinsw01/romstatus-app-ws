@@ -148,7 +148,7 @@ Sorterer først oppover. Hvis den har sortert gjennom hele uten at noe er blitt 
 */
 function sortTable(n) {
   var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-  table = document.getElementById("myTable");
+  table = document.getElementById("table");
   switching = true;
   // Setter retning oppover:
   dir = "asc";
@@ -194,48 +194,14 @@ function sortTable(n) {
   }
 }
 
-function sortTableLuft(n) { //Samme som funksjonen over, bare med luftkvalitet
-  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-  table = document.getElementById("myTable");
-  switching = true;
-  dir = "asc";
-  while (switching) {
-    switching = false;
-    rows = table.rows;
-    for (i = 1; i < (rows.length - 1); i++) {
-      shouldSwitch = false;
-      x = rows[i].getElementsByTagName("TD")[n];
-      y = rows[i + 1].getElementsByTagName("TD")[n];
-      if (dir == "asc") {
-        if (Number(x.title) > Number(y.title)) { //Sorterer etter tittel-attribute i stedet for string
-          shouldSwitch = true;
-          break;
-        }
-      } else if (dir == "desc") {
-        if (Number(x.title) < Number(y.title)) {
-          shouldSwitch = true;
-          break;
-        }
-      }
-    }
-    if (shouldSwitch) {
-      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-      switching = true;
-      switchcount++;
-    } else {
-      if (switchcount == 0 && dir == "asc") {
-        dir = "desc";
-        switching = true;
-      }
-    }
-  }
-}
-
-function luftStatus() {
-  sortTableLuft(4);
+//Not used, but effective
+/*function sortByStatusAndQuality() {
+  sortTable(4);
   sortTable(3);
-}
+}*/
 
+
+//Does not work with new classes, names, titles, etc.:
 //oppdatere Kart etter tabell
 function oppdatereKartDel(id, n) {
   var table, rows, status, boks, LuftKval = 0;

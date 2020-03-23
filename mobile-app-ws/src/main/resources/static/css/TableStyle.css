@@ -1,0 +1,46 @@
+:root {
+    --primCol: #F9F8F6;
+    --secCol: #EbE9E8;
+    --hoverCol: #FFBA66;
+  }
+
+table#table {
+    border-collapse: collapse;
+    text-align: center;
+    margin-left: 0;
+    width: 100%;
+  }
+
+  th {
+    text-align: center;
+    color: white;
+    background-color: #E77731;
+    margin: 10px;
+    padding: 10px;
+    letter-spacing: 2px;
+    width: 20%;
+    cursor: pointer;
+    transition: 0.48s;
+    border: solid var(--primCol) 3px;
+  }
+
+  th:hover {
+    background-color: orange;
+    transition: 0.5s;
+    transform: scale(1.01);
+  }
+
+  tr {
+    transition: 0.2s;
+    background-color: var(--secCol);
+  }
+
+  tr:hover {
+    background-color: var(--hoverCol);
+    transition: 0.2s;
+  }
+
+  tr>td {
+    padding: 5px;
+    border-left: solid var(--primCol) 3px;
+  }
