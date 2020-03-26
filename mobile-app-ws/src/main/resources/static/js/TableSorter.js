@@ -93,7 +93,7 @@ function() {
 
 
 // Bla mellom sidene
-function side(n) {
+/*function side(n) {
   //Finner elementer
   var a, b, c, d = 0;
   a = document.getElementById("Oversikt");
@@ -139,7 +139,7 @@ function side(n) {
     document.getElementById("hjelp").className = "inactive";
     document.getElementById("pro").className = "active";
   }
-}
+}*/
 
 // Sorter tabellen
 /*

@@ -1,132 +1,49 @@
-var socket;
-var reconnect;
+class Socket {
 
-function connect(url) {
-    console.log("Connecting to server...");
-
-    //Following code might not be needed.
-    /*url = document.location.href.replace(/(^\w+:|^)\/\//, '');
-    url = url.replace(/(\d{4,}.*$)/, '');
-    url = "ws://" + url + "8082";*/
-    //url = "ws://10.0.0.135:8082"; //TODO: set correct ip-address
-    socket = new WebSocket(url);
-
-    socket.onopen = function () {
-        console.log("Connected to server!");
-        clearTimeout(reconnect);
-    };
-
-    socket.onmessage = function (ev) {
-        handleData(JSON.parse(ev.data));
-    };
-
-    socket.onclose = function () {
-        console.log("Connection error!");
-        reconnect = setTimeout(connect(), 5000);
-    };
-
-
-}
-
-function handleData(data) {
-
-    console.log("Message received: '" + data.header + "'");
-
-    if (data.header === "ROOMS") {
-        TableAdapter.adapt(data.roomList);
-    }
-}
-
-function updateTable(rooms) {
-    var statusElement;
-    var qualityElement;
-
-    for (var x = 0; x < rooms.length; x++) {
-        statusElement = document.getElementById(rooms[x].roomNumber + "status");
-        qualityElement = document.getElementById(rooms[x].roomNumber + "luft");
-
-        statusElement.innerText = rooms[x].roomOccupied ? "Opptatt" : "Ledig";
-        qualityElement.title = rooms[x].roomAirQuality;
-        qualityElement.name = rooms[x].roomAirQuality;
-
-        if (rooms[x].roomAirQuality < 700) {
-            qualityElement.innerText = "Høy";
-        }
-        else if (rooms[x].roomAirQuality < 900) {
-            qualityElement.innerText = "Middels";
-        }
-        else if (rooms[x].roomAirQuality < 2000) {
-            qualityElement.innerText = "Lav";
-        }
-        else {
-            qualityElement.innerText = "Out of range exception";
-        }
-    }
-}
-
-function requestNewData() {
-    socket.send("Need data");
-}
-
-function stopServer() {
-    socket.send("STOP");
-}
-
-class TableAdapter {
-    static adapt(roomList) {
-        var rowTemplateElement = document.getElementsByName("tableRowTemplate")[0];
-        var parentElement = document.getElementById("tableBody");
-        var rowElement;
-
-        this.removeChildButTemplate(parentElement);
-
-        rowTemplateElement.style.visibility = "visible"
-
-        var index = 0;
-        var room;
-        while (room = roomList[index++]) {
-            rowElement = rowTemplateElement.cloneNode(true);
-
-            rowElement.getElementsByClassName("floor")[0].innerHTML = room.floor;
-            rowElement.getElementsByClassName("number")[0].innerHTML = room.roomNumber;
-            rowElement.getElementsByClassName("name")[0].innerHTML = room.roomName;
-            rowElement.getElementsByClassName("status")[0].innerHTML = this.getStatus(room.roomAvailable);
-            rowElement.getElementsByClassName("quality")[0].innerHTML = this.getQuality(room.roomAirQuality);
-
-            parentElement.appendChild(rowElement);
-        }
-
-        rowTemplateElement.style.visibility = "collapse"
+    constructor(handleRoomData, url) {
+        this.webSocket = new WebSocket(url);
+        this.handleRoomData = handleRoomData;
     }
 
-    static removeChildButTemplate(parentElement) {
-        var childElement;
-        while (childElement = parentElement.getElementsByTagName("tr")[1]) {
-            parentElement.removeChild(childElement);
-        }
+    connect() {
+        console.log("Connecting to server...");
+        var reconnectDelay, handleRoomData, reconnect;
+
+        handleRoomData = this.handleRoomData;
+        reconnect = this.connect;
+
+        /*
+        Should above code even be necessary? Does not work without, though...
+        When calling this inside a method belonging to 'Socket' from another object, this refers to the other object, for som weird reason
+        */
+
+        //Following code might not be needed.
+        /*url = document.location.href.replace(/(^\w+:|^)\/\//, '');
+        url = url.replace(/(\d{4,}.*$)/, '');
+        url = "ws://" + url + "8082";*/
+        //url = "ws://10.0.0.135:8082"; //TODO: set correct ip-address
+
+        this.webSocket.onopen = function () {
+            console.log("Connected to server!");
+            clearTimeout(reconnectDelay);
+            //console.log(this);
+            this.send("ROOM REQUEST");
+        };
+
+        this.webSocket.onmessage = function (ev) {
+            var data = JSON.parse(ev.data);
+            if (data.header === "ROOMS") {
+                handleRoomData(data.roomList);
+                console.log("Received room list: " + data.roomList);
+            }
+            else {
+                console.log("Received unrecognised message: " + data);
+            }
+        };
+
+        this.webSocket.onclose = function () {
+            console.log("Connection error!");
+            reconnectDelay = setTimeout(reconnect(), 5000);
+        };
     }
-
-    static getStatus(available) {
-        if (available) {
-            return "Ledig";
-        }
-        else {
-            return "Opptatt";
-        }
-    }
-
-    static getQuality(quality) {
-        switch(quality) {
-            case 1:
-                return "Høy";
-            case 2:
-                return "Medium";
-            case 3:
-                return "Lav";
-            default:
-                return "N/A";
-        }
-    }
-
-
 }

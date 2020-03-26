@@ -7,10 +7,13 @@
     <meta charset="utf-8"/>
 
     <script src="../js/SocketTest.js" type="text/javascript"></script>
+    <script src="../js/TableAdapter.js" type="text/javascript"></script>
     <script src="../js/TableSorter.js" type="text/javascript"></script>
     <title>Table</title>
     <script>
-        window.onload = connect('ws://10.0.0.135:8082');
+        var socket = new Socket(TableAdapter.adapt, 'ws://10.0.0.135:8082');
+
+        window.onload = socket.connect();
     </script>
 </head>
 
@@ -20,7 +23,7 @@
         <ul>
             <li class="active" id="over">Tabell</li>
             <a href="Map.html"><li class="inactive" id="kartm">Kart</li></a>
-            <li class="inactive" id="hjelp"><a href="Help.html">Help</li></a>
+            <a href="Help.html"><li class="inactive" id="hjelp">Hjelp</li></a>
             <a href="About.html"><li class="inactive" id="pro">Om Prosjektet</li></a>
             <li class="inactive" id="canvas" onclick="window.location.href = 'https://akademiet.instructure.com';">Canvas</li>
             <p id="easteregg1" ondblclick="alert('01110000 01101100 01100001 01100011 01100101 01101000 01101111 01101100 01100100 01100101 01110010')">Paskeegg?</p>
@@ -34,22 +37,23 @@
         <table id="table">
             <thead id="tableHead">
             <tr>
-                <th class="button" id="etasje" onclick="sortTable(0)" title="Sorter etter etasje">Etasje</th>
+                <th class="button | floor" id="etasje" onclick="sortTable(0)" title="Sorter etter etasje">Etasje</th>
                 <th class="button" id="romnummer" onclick="sortTable(1)" title="Sorter etter romnummer">Romnr.</th>
-                <th class="button" id="navn" onclick="sortTable(2)" title="Sorter etter romnavn">Navn</th>
+                <th class="button | name" id="navn" onclick="sortTable(2)" title="Sorter etter romnavn">Navn</th>
                 <th class="button" onclick="sortTable(3)" title="Sorter etter status">Status</th>
                 <th class="button" id="luftkvalitet" onclick="sortTable(4)" title="Sorter etter luftkvalitet">Luftkvalitet</th>
             </tr>
             </thead>
 
             <tbody id="tableBody">
-            <tr name="tableRowTemplate">
-                <td class="floor">N/A</td>
-                <td class="number">N/A</td>
-                <td class="name">N/A</td>
-                <td class="status">N/A</td>
-                <td class="quality">N/A</td>
-            </tr>
+                <tr name="tableRowTemplate" class="tableRow">
+                    <td class="floor">N/A</td>
+                    <td class="number">N/A</td>
+                    <td class="name">N/A</td>
+                    <td class="status">N/A</td>
+                    <td class="quality">N/A</td>
+                </tr>
+            </tbody>
 
         </table>
     </div>
