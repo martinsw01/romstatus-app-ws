@@ -2,19 +2,19 @@ package no.akademiet.app.ws.mobileappws.api;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import no.akademiet.app.ws.mobileappws.dao.RoomsDao;
+import no.akademiet.app.ws.mobileappws.model.ExceptionData;
 import no.akademiet.app.ws.mobileappws.model.Room;
+import no.akademiet.app.ws.mobileappws.model.RoomData;
 import no.akademiet.app.ws.mobileappws.service.RoomsService;
 import org.java_websocket.WebSocket;
 import org.java_websocket.handshake.ClientHandshake;
 import org.java_websocket.server.WebSocketServer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.net.InetSocketAddress;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -25,7 +25,7 @@ import java.util.logging.Logger;
  * Implements 'CommandLineRunner' and is annotated with @Component so that it runs with the rest of the application
  */
 @Component
-public class CustomWebSocket extends WebSocketServer implements CommandLineRunner {
+public class CustomWebSocket extends WebSocketServer implements CommandLineRunner, RoomsDao.RoomListChangeListener {
 
     final static private Logger LOGGER = Logger.getLogger(CustomWebSocket.class.getName());
     private RoomsService roomsService;
@@ -43,22 +43,25 @@ public class CustomWebSocket extends WebSocketServer implements CommandLineRunne
         setReuseAddr(true); //Socket might be in 'TIME_WAIT', preventing application to listen to port. See https://stackoverflow.com/questions/31864369/java-net-bindexception-address-already-in-use-jvm-bind
 
         this.roomsService = roomsService;
+        roomsService.addRoomChangeListener(this);
     }
 
     @Override
     public void onOpen(WebSocket webSocket, ClientHandshake clientHandshake) {
         String client = webSocket.getRemoteSocketAddress().toString();
         clients.add(client);
+        notifyActiveClientsChanged();
+
         LOGGER.log(Level.INFO, "Socket opened: " + client);
         LOGGER.log(Level.INFO, clients.size() + " clients currently connected");
-
-        handleEvent("ROOM REQUEST");
     }
 
     @Override
     public void onClose(WebSocket webSocket, int i, String s, boolean b) {
         String client = webSocket.getRemoteSocketAddress().toString();
         clients.remove(client);
+        notifyActiveClientsChanged();
+
         LOGGER.log(Level.INFO, "Socket closed: " + client);
         LOGGER.log(Level.INFO, clients.size() + " clients currently connected");
 
@@ -88,16 +91,28 @@ public class CustomWebSocket extends WebSocketServer implements CommandLineRunne
         run();
     }
 
+    private void notifyActiveClientsChanged() {
+        try {
+            roomsService.notifyActiveClientsChanged(clients.size());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private void handleEvent(String event) {
         switch (event) {
             case "ROOM REQUEST":
-                try {
-                    RoomData roomData = new RoomData(roomsService.getAllRooms());
-                    broadcastData(roomData);
-                }
-                catch (Exception e) {
-                    broadcastData(new ExceptionData(e));
-                }
+                broadcastRoomData();
+        }
+    }
+
+    private void broadcastRoomData() {
+        try {
+            RoomData roomData = new RoomData(roomsService.getAllRooms());
+            broadcastData(roomData);
+        }
+        catch (Exception e) {
+            broadcastData(new ExceptionData(e));
         }
     }
 
@@ -108,41 +123,14 @@ public class CustomWebSocket extends WebSocketServer implements CommandLineRunne
             broadcast(dataString);
         }
         catch (JsonProcessingException jpe) {
+            LOGGER.log(Level.WARNING, "Could not parse to Json object", jpe);
             // TODO: 21/03/2020 handle exception
         }
     }
 
-    private class RoomData {
-        private String header = "ROOMS";
-        private List<Room> roomList;
-
-        public RoomData(List<Room> roomList) {
-            this.roomList = roomList;
-        }
-
-        public String getHeader() {
-            return header;
-        }
-
-        public List<Room> getRoomList() {
-            return roomList;
-        }
+    @Override
+    public void onRoomListChanged(List<Room> roomList) {
+        broadcastData(new RoomData(roomList));
     }
 
-    private class ExceptionData {
-        private String header = "EXCEPTION";
-        private Exception exception;
-
-        public ExceptionData(Exception exception) {
-            this.exception = exception;
-        }
-
-        public String getHeader() {
-            return header;
-        }
-
-        public Exception getException() {
-            return exception;
-        }
-    }
 }

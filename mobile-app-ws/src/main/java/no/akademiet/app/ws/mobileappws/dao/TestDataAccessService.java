@@ -22,6 +22,12 @@ public class TestDataAccessService implements RoomsDao {
         return generateRooms();
     }
 
+    @Override
+    public void notifyActiveClientsChanged(int activeClients) throws Exception {}
+
+    @Override
+    public void addRoomListChangeListener(RoomListChangeListener listener) {}
+
     private List<Room> generateRooms() {
         if (!generatedRooms.isEmpty()) {
             return generatedRooms;

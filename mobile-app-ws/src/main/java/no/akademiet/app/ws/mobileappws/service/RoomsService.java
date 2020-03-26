@@ -21,4 +21,12 @@ public class RoomsService {
     public List<Room> getAllRooms() throws Exception {
         return roomsDao.getAllRooms();
     }
+
+    public void addRoomChangeListener(RoomsDao.RoomListChangeListener listener) {
+        roomsDao.addRoomListChangeListener(listener);
+    }
+
+    public void notifyActiveClientsChanged(int activeClients) throws Exception{
+        roomsDao.notifyActiveClientsChanged(activeClients);
+    }
 }
