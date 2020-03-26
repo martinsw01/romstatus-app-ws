@@ -11,36 +11,71 @@ table#table {
     width: 100%;
   }
 
-  th {
-    text-align: center;
-    color: white;
-    background-color: #E77731;
-    margin: 10px;
-    padding: 10px;
-    letter-spacing: 2px;
-    width: 20%;
-    cursor: pointer;
-    transition: 0.48s;
-    border: solid var(--primCol) 3px;
+th {
+text-align: center;
+color: white;
+background-color: #E77731;
+margin: 10px;
+padding: 10px;
+letter-spacing: 2px;
+width: 20%;
+cursor: pointer;
+transition: 0.48s;
+border: solid var(--primCol) 3px;
+}
+
+th:hover {
+background-color: orange;
+transition: 0.5s;
+transform: scale(1.01);
+}
+
+tr {
+transition: 0.2s;
+background-color: var(--secCol);
+}
+
+tr:hover {
+background-color: var(--hoverCol);
+transition: 0.2s;
+}
+
+tr>td {
+padding: 5px;
+border-left: solid var(--primCol) 3px;
+}
+
+/* Hide less important columns when screen shrinks */
+@media only screen and (max-width: 600px) {
+  .floor {
+    display: none;
   }
 
-  th:hover {
-    background-color: orange;
-    transition: 0.5s;
-    transform: scale(1.01);
+  li {
+    font-size: 15px;
+    padding: 15px;
   }
+}
 
-  tr {
-    transition: 0.2s;
-    background-color: var(--secCol);
-  }
+@media only screen and (max-width: 520px) {
+    .name {
+      display: none;
+    }
+}
 
-  tr:hover {
-    background-color: var(--hoverCol);
-    transition: 0.2s;
-  }
+@media only screen and (max-width: 325px) {
+    tr.tabell td {
+      font-size: 90%;
+    }
 
-  tr>td {
-    padding: 5px;
-    border-left: solid var(--primCol) 3px;
+    th {
+      font-size: 90%;
+    }
   }
+}
+
+@media only screen and (max-width: 325px) {
+    tr.tabell td {
+      font-size: 90%;
+    }
+}
