@@ -163,7 +163,7 @@ public class DBAccessService implements RoomsDao {
     }
 
     private void notifyRoomListChanged(List<Room> roomList) {
-        if (roomList == cache) {
+        if (cache.equals(roomList)) {
             return;
         }
         for (RoomListChangeListener listener : roomListChangeListeners) {
