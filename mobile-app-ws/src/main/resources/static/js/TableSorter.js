@@ -236,7 +236,7 @@ function statusFarge2() {   //Kaller funksjonen oppdatereKartDel for alle rom
 
 //
 
-function hover(etasje1, etasje2) {  //Hvis du peker på en av etasjene i kartet, utvides de
+function mouseover(etasje1, etasje2) {  //Hvis du peker på en av etasjene i kartet, utvides de
   var x, y = 0;
   x = document.getElementById(etasje1); //etasje1 er ikke første etasje, men etasjen du peker på
   y = document.getElementById(etasje2); //etasjen du ikke peker på hvis du peker på en etasje
@@ -245,10 +245,10 @@ function hover(etasje1, etasje2) {  //Hvis du peker på en av etasjene i kartet,
 }
 
 
-function hoverNot() {   //Etasjene går tilbake til vanlig størelse hvis du ikke peker på dem
+function mouseout() {   //Etasjene går tilbake til vanlig størelse hvis du ikke peker på dem
   var x, y = 0;
-  x = document.getElementById('etasje1');
-  y = document.getElementById('etasje2');
+  x = document.getElementById('floor1');
+  y = document.getElementById('floor2');
   x.style.width = '28%';
   x.style.transition = '0.3s';
   y.style.width = '30%';
