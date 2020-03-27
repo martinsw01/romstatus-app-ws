@@ -92,7 +92,7 @@ public class DBAccessService implements RoomsDao {
     public void notifyActiveClientsChanged(int activeUsers) throws SQLException {
         Statement statement = dbConnection.createStatement();
 
-        String query = "INSERT INTO activeClientsTest (id, clients) VALUES (" + id++ + ", " + activeUsers + ");";
+        String query = "INSERT INTO activeClientsTest (id, clients, timestamp) VALUES (" + id++ + ", " + activeUsers + ", current_timestamp);";
         statement.executeUpdate(query);
 
         statement.close();
@@ -139,7 +139,8 @@ public class DBAccessService implements RoomsDao {
     }
 
     private ResultSet selectRoom(String roomNumber, Statement stmt) throws SQLException {
-        return stmt.executeQuery("SELECT * FROM " + TABLE + " WHERE number = " + roomNumber + " FETCH FIRST ROWS ONLY;");
+        String query = "SELECT floor, number, name, available, quality FROM " + TABLE + " WHERE number = " + roomNumber + "ORDER BY timestamp DESC LIMIT 1;";
+        return stmt.executeQuery(query);
     }
 
     private void regularlyRequestRooms() {
