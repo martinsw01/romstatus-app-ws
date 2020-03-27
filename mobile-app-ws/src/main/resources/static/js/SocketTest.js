@@ -41,6 +41,10 @@ class Socket {
             }
         };
 
+        /*
+        The context of 'this' changes all the time. When 'reconnect()' (connect()) is called, it is in the context of
+        'websocket'. Therefore 'this.webSocket' actually means 'webSocket.webSocket', which does not exist.
+        */
         this.webSocket.onclose = function () {
             console.log("Connection error!");
             reconnectDelay = setTimeout(reconnect(), 5000);
