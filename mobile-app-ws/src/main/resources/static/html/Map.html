@@ -32,197 +32,31 @@
         </ul>
     </div>
 
+    <!-- Room Template -->
+    <div name="roomTemplate" class="room | qualityHigh" style="display: none">
+        <div class="roomNumber">N/A</div>
+        <div class="details">
+            <div class="status">
+                <span name="Label">Status:</span>
+                <span class="statusDetails">N/A</span>
+            </div>
+            <div class="quality">
+                <span name="Label">Luftkvalitet:</span>
+                <span class="qualityDetails">N/A</span>
+            </div>
+        </div>
+    </div>
+
     <!-- Map -->
-    <div id="kart" class="map">
-        <div class="unclick" id="Vrimle">
-            <p id="Vrimle">Vrimle</p>
+    <div class="Map">
+        <div class="Vrimle | unclick">
+            <p>Vrimle</p>
         </div>
-        <div class="unclick" id="etasje1" onmouseout="hoverNot()" onmouseover="hover('etasje1', 'etasje2')">
-            <div class="111" id="111K" name="grupperom">
-                <div>111</div>
-                <table>
-                    <tbody><tr>
-                        <td>Status:</td>
-                        <td class="status">Opptatt</td>
-                    </tr>
-                    <tr>
-                        <td>Luftkvalitet:</td>
-                        <td class="quality">Hoy</td>
-                    </tr>
-                    </tbody></table>
-            </div>
-            <div class="200" id="112K" name="grupperom">
-                <div>112</div>
-                <table>
-                    <tbody><tr>
-                        <td>Status:</td>
-                        <td class="status">Opptatt</td>
-                    </tr>
-                    <tr>
-                        <td>Luftkvalitet:</td>
-                        <td class="quality">Lav</td>
-                    </tr>
-                    </tbody></table>
-            </div>
-            <div class="700" id="113K" name="grupperom">
-                <div>113</div>
-                <table>
-                    <tbody><tr>
-                        <td>Status:</td>
-                        <td class="status">Opptatt</td>
-                    </tr>
-                    <tr>
-                        <td>Luftkvalitet:</td>
-                        <td class="quality">Lav</td>
-                    </tr>
-                    </tbody></table>
-            </div>
-            <div class="500" id="114K" name="grupperom">
-                <div>114</div>
-                <table>
-                    <tbody><tr>
-                        <td>Status:</td>
-                        <td class="status">Ledig</td>
-                    </tr>
-                    <tr>
-                        <td>Luftkvalitet:</td>
-                        <td class="quality">Hoy</td>
-                    </tr>
-                    </tbody></table>
-            </div>
-            <div class="800" id="115K" name="grupperom">
-                <div>115</div>
-                <table>
-                    <tbody><tr>
-                        <td>Status:</td>
-                        <td class="status">Opptatt</td>
-                    </tr>
-                    <tr>
-                        <td>Luftkvalitet:</td>
-                        <td class="quality">Hoy</td>
-                    </tr>
-                    </tbody></table>
-            </div>
-        </div>
-        <div class="unclick" id="etasje2" onmouseout="hoverNot()" onmouseover="hover('etasje2', 'etasje1')">
-            <div class="111" id="209K" name="grupperom">
-                <div>209</div>
-                <table>
-                    <tbody><tr>
-                        <td>Status:</td>
-                        <td class="status">Opptatt</td>
-                    </tr>
-                    <tr>
-                        <td>Luftkvalitet:</td>
-                        <td class="quality">Lav</td>
-                    </tr>
-                    </tbody></table>
-            </div>
-            <div class="1000" id="210K" name="grupperom">
-                <div>210</div>
-                <table>
-                    <tbody><tr>
-                        <td>Status:</td>
-                        <td class="status">Ledig</td>
-                    </tr>
-                    <tr>
-                        <td>Luftkvalitet:</td>
-                        <td class="quality">Lav</td>
-                    </tr>
-                    </tbody></table>
-            </div>
-            <div class="111" id="211K" name="grupperom">
-                <div>211</div>
-                <table>
-                    <tbody><tr>
-                        <td>Status:</td>
-                        <td class="status">Opptatt</td>
-                    </tr>
-                    <tr>
-                        <td>Luftkvalitet:</td>
-                        <td class="quality">Lav</td>
-                    </tr>
-                    </tbody></table>
-            </div>
-            <div class="600" id="212K" name="grupperom">
-                <div>212</div>
-                <table>
-                    <tbody><tr>
-                        <td>Status:</td>
-                        <td class="status">Ledig</td>
-                    </tr>
-                    <tr>
-                        <td>Luftkvalitet:</td>
-                        <td class="quality">Hoy</td>
-                    </tr>
-                    </tbody></table>
-            </div>
-            <div class="800" id="213K" name="grupperom">
-                <div>213</div>
-                <table>
-                    <tbody><tr>
-                        <td>Status:</td>
-                        <td class="status">Ledig</td>
-                    </tr>
-                    <tr>
-                        <td>Luftkvalitet:</td>
-                        <td class="quality">Lav</td>
-                    </tr>
-                    </tbody></table>
-            </div>
-            <div class="500" id="214K" name="grupperom">
-                <div>214</div>
-                <table>
-                    <tbody><tr>
-                        <td>Status:</td>
-                        <td class="status">Opptatt</td>
-                    </tr>
-                    <tr>
-                        <td>Luftkvalitet:</td>
-                        <td class="quality">Hoy</td>
-                    </tr>
-                    </tbody></table>
-            </div>
-            <div class="111" id="215K" name="grupperom">
-                <div>215</div>
-                <table>
-                    <tbody><tr>
-                        <td>Status:</td>
-                        <td class="status">Ledig</td>
-                    </tr>
-                    <tr>
-                        <td>Luftkvalitet:</td>
-                        <td class="quality">Lav</td>
-                    </tr>
-                    </tbody></table>
-            </div>
-            <div class="700" id="216K" name="grupperom">
-                <div>216</div>
-                <table>
-                    <tbody><tr>
-                        <td>Status:</td>
-                        <td class="status">Ledig</td>
-                    </tr>
-                    <tr>
-                        <td>Luftkvalitet:</td>
-                        <td class="quality">Lav</td>
-                    </tr>
-                    </tbody></table>
-            </div>
-            <div class="111" id="217K" name="grupperom">
-                <div>217</div>
-                <table>
-                    <tbody><tr>
-                        <td>Status:</td>
-                        <td class="status">Opptatt</td>
-                    </tr>
-                    <tr>
-                        <td>Luftkvalitet:</td>
-                        <td class="quality">Lav</td>
-                    </tr>
-                    </tbody></table>
-            </div>
-        </div>
+
+        <div id="floor1" class="unclick" onmouseover="mouseover('floor1', 'floor2')" onmouseout="mouseout()"></div>
+
+        <div id="floor2" class="unclick" onmouseover="mouseover('floor2', 'floor1')" onmouseout="mouseout()"></div>
+
     </div>
 </body>
 </html>

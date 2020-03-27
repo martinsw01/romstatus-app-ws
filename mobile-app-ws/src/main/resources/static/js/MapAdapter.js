@@ -1,18 +1,33 @@
 class MapAdapter {
-    static adaptRoom(room) {
-        var roomElement = document.getElementById(room.roomNumber + "K");
-        roomElement.getElementsByClassName("status")[0].innerHTML = MapAdapter.getStatus(room.roomAvailable);
-        roomElement.getElementsByClassName("quality")[0].innerHTML = MapAdapter.getQuality(room.roomAirQuality);
+    static adaptRoom(roomElement, room) {
+        var parentElement = document.getElementById('floor' + room.floor);
+
+        roomElement.style.display = "";
+        roomElement.className = "room | " + MapAdapter.getClass(room);
+        roomElement.getElementsByClassName("roomNumber")[0].innerHTML = room.roomNumber;
+        roomElement.getElementsByClassName("statusDetails")[0].innerHTML = MapAdapter.getStatus(room.roomAvailable);
+        roomElement.getElementsByClassName("qualityDetails")[0].innerHTML = MapAdapter.getQuality(room.roomAirQuality);
+        parentElement.appendChild(roomElement);
     }
     
     static adaptMap(roomList) {
+        var index, room, templateElement, roomElement;
         var index = 0;
-        var room;
+
+        MapAdapter.clearMap();
+
+        templateElement = document.getElementsByName("roomTemplate")[0];
         while (room = roomList[index++]) {
-            MapAdapter.adaptRoom(room);
+            roomElement = templateElement.cloneNode(true);
+            MapAdapter.adaptRoom(roomElement, room);
         }
     }
-    
+
+    static clearMap() {
+        document.getElementById('floor1').innerHTML = "";
+        document.getElementById('floor2').innerHTML = "";
+    }
+
     static getStatus(available) {
         if (available) {
             return "Ledig";
@@ -21,7 +36,7 @@ class MapAdapter {
     }
     
     static getQuality(quality) {
-        switch(quality) {
+        switch (quality) {
             case 1:
                 return "Høy";
             case 2:
@@ -30,6 +45,22 @@ class MapAdapter {
                 return "Lav";
             default:
                 return "N/A";
+        }
+    }
+
+    static getClass(room) {
+        if (!room.roomAvailable) {
+            return "unavailable";
+        }
+        switch (room.roomAirQuality) {
+            case 1:
+                return "qualityHigh";
+            case 2:
+                return "qualityMedium";
+            case 3:
+                return "qualityPoor";
+            default:
+                return "unavailable";
         }
     }
 }
