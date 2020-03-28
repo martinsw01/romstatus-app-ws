@@ -188,7 +188,7 @@
   }
 
   /* Sider som enda ikke er ferdig */
-  div.innhold {
+  div.content {
     width: 100%;
     padding-left: var(--paddingWide);
     padding-right: var(--paddingWide);
@@ -242,7 +242,7 @@
       display: none;
     }
 
-    div.innhold {
+    div.content {
       width: 100%;
       padding-left: var(--paddingSmall);
       padding-right: var(--paddingSmall);
